@@ -4,41 +4,25 @@ import com.business.schoolcanteen.commands.customer.inputs.CreateCustomerCommand
 import com.business.schoolcanteen.service.customer.CreateCustomerAction;
 import com.business.schoolcanteen.service.customer.ListCustomerAction;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/customers")
 @RequiredArgsConstructor
 public class CustomerController {
 
     private final CreateCustomerAction createCustomerAction;
     private final ListCustomerAction listCustomerAction;
-
-    @GetMapping()
-    public String showCustomers(Model model) {
-        model.addAttribute("customers", listCustomerAction.findAll(""));
-        return "customers";
-    }
-
-    @GetMapping("/create-customer")
-    public String showCreateCustomers() {
-        return "/create-customer";
-    }
-
     @PostMapping("/register")
-    public String createCustomer(CreateCustomerCommand command) {
+    public ResponseEntity<?> registerCustomer(@RequestParam CreateCustomerCommand command) {
         createCustomerAction.createCustomer(command);
-        return "redirect:/customers";
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/search")
-    public String searchCustomers(@RequestParam String query, Model model) {
-        model.addAttribute("customers", listCustomerAction.findAll(query));
-        return "customers";
+    public ResponseEntity<?> searchCustomer(@RequestParam String search) {
+        return ResponseEntity.ok(listCustomerAction.findAll(search));
     }
 }

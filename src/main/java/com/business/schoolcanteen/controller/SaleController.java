@@ -19,32 +19,19 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/sales")
 @RequiredArgsConstructor
 public class SaleController {
 
     private final CreateSaleAction createSaleAction;
     private final ListSaleAction listSaleAction;
-    private final ListProductAction listProductAction;
-    private final ListCustomerAction listCustomerAction;
 
     @GetMapping
-    public String listSales(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, Model model) {
+    public ResponseEntity<?> listSales(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
         if (date == null)
             date = LocalDate.now();
-        List<Sale> sales = listSaleAction.findAll(date);
-        model.addAttribute("sales", sales);
-        return "sales";
-    }
-
-    @GetMapping("/register")
-    public String showSaleForm(Model model) {
-        List<Product> products = listProductAction.findAll("");
-        List<Customer> customers = listCustomerAction.findAll("");
-        model.addAttribute("products", products);
-        model.addAttribute("customers", customers);
-        return "create-sale";
+        return ResponseEntity.ok(listSaleAction.findAll(date));
     }
 
     @PostMapping("/register")
