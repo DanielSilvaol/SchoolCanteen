@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button, #create-product {
+            padding: 10px 15px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 5px;
+        }
+        button[type="reset"] {
+            background-color: #dc3545;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script src="/school/js/sidebar-menu.js" defer></script>
+    <link rel="stylesheet" href="/school/css/default.css">
+</head>
+<body>
+<div id="sidebar-menu"></div>
+
+<div class="content">
+    <h1>Produtos</h1>
+    <form action="#" th:action="@{/products/search}" method="get">
+        <label for="query">Buscar produto:</label>
+        <input type="text" id="query" name="query">
+        <button type="submit">Buscar</button>
+        <button type="reset">Reset</button>
+        <a id="create-product" href="/school/products/create-product">Criar novo produto</a>
+    </form>
+    <ul>
+        <li th:each="product : ${products}">
+            <span th:text="${product.name}"></span> - R$ <span th:text="${product.salePrice}"></span>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

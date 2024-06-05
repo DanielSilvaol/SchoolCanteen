@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales</title>
+    <link rel="stylesheet" href="/school/css/default.css">
+    <link rel="stylesheet" href="/school/css/sale-style.css">
+</head>
+<body>
+<div id="sidebar-menu"></div>
+
+<div class="content">
+    <h1>Sales</h1>
+
+    <form method="get" action="/sales" class="filter-form">
+        <label for="filterDate">Filter by date:</label>
+        <input type="date" id="filterDate" name="filterDate" oninput="filterSales()">
+        <a id="create-sale" href="/school/sales/register">Create New Sale</a>
+    </form>
+
+    <table id="salesTable" class="sales-table">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Total Amount</th>
+            <th>Product</th>
+            <th>Customer</th>
+            <th>Quantity</th>
+            <th>Product Price</th>
+            <th>Payment Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sale : ${sales}" th:data-date="${sale.registerDate}">
+            <td th:text="${sale.registerDate}"></td>
+            <td th:text="${sale.total}"></td>
+            <td th:text="${sale.product.name}"></td>
+            <td th:text="${sale.customer.name}"></td>
+            <td th:text="${sale.quantity}"></td>
+            <td th:text="${sale.productPrice}"></td>
+            <td th:text="${sale.paymentType}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Function to filter sales based on date input
+    function filterSales() {
+        const filterDate = document.getElementById('filterDate').value;
+        const salesTable = document.getElementById('salesTable');
+        const salesRows = salesTable.getElementsByTagName('tr');
+
+        for (let i = 1; i < salesRows.length; i++) { // Start from 1 to skip the header row
+            const saleDate = salesRows[i].getAttribute('data-date');
+            if (saleDate.includes(filterDate)) {
+                salesRows[i].style.display = '';
+            } else {
+                salesRows[i].style.display = 'none';
+            }
+        }
+    }
+</script>
+<script src="/school/js/sidebar-menu.js" defer></script>
+</body>
+</html>
