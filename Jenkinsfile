@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        KUBECONFIG    = '/var/jenkins_home/prod'
         namespace = "${namespace}"
         dockerImage = "${image}"
         deployment = "${deployment}"
