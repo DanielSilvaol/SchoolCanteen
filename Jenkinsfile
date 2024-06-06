@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        docker { image 'node:20.11.1-alpine3.19' }
-    }
+    agent any
 
     environment {
         namespace = "${namespace}"
@@ -11,6 +9,7 @@ pipeline {
 
     tools {
         maven 'MAVEN_JENKINS'
+        docker 'DOCKER_JENKINS'
     }
 
     stages {
