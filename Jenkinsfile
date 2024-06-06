@@ -9,7 +9,6 @@ pipeline {
 
     tools {
         maven 'MAVEN_JENKINS'
-        docker 'DOCKER_JENKINS'
     }
 
     stages {
