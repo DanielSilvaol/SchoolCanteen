@@ -12,26 +12,10 @@ pipeline {
     }
 
     stages {
-        stage('Initialize')
-        {
-            steps {
-                def dockerHome = tool 'DOCKER_JENKINS'
-            def mavenHome  = tool 'MAVEN_JENKINS'
-            env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
-            }
-            
-        }
         stage('Build') {
             steps {
                 echo 'Building...'
                 sh 'mvn clean package -DskipTests=true'
-            }
-        }
-        stage('Unit Tests') {
-            steps {
-                echo 'Running unit tests...'
-                // Uncomment the line below if you want to run unit tests
-                // sh 'mvn test'
             }
         }
         stage('Deploy to GitLab') {
