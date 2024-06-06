@@ -9,6 +9,7 @@ pipeline {
 
     tools {
         maven 'MAVEN_JENKINS'
+        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker'
     }
 
     stages {
