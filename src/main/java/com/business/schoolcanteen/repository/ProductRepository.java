@@ -1,12 +1,10 @@
 package com.business.schoolcanteen.repository;
 
 import com.business.schoolcanteen.entity.Product;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Product, Long> {
-    @Query("SELECT p FROM Product p WHERE UPPER(p.name) LIKE CONCAT('%', UPPER(?1) , '%') ")
+public interface ProductRepository extends MongoRepository<Product, String> {
     List<Product> findByNameLikeIgnoreCaseAndActiveTrue(String name);
 }

@@ -2,34 +2,34 @@ package com.business.schoolcanteen.entity;
 
 
 import com.business.schoolcanteen.entity.enums.PaymentTypeEnum;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
 @Data
-@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Document(collection = "sale")
 public class Sale {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private int quantity;
     private double total;
     private double productPrice;
     private LocalDateTime registerDate;
 
-    @Enumerated(EnumType.STRING)
     private PaymentTypeEnum paymentType;
 
-    @ManyToOne
+    @DBRef
     private Product product;
 
-    @ManyToOne
+    @DBRef
     private Customer customer;
 }

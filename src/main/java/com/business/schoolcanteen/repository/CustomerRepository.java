@@ -1,13 +1,12 @@
 package com.business.schoolcanteen.repository;
 
 import com.business.schoolcanteen.entity.Customer;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
-    @Query(value = "SELECT c FROM Customer c WHERE UPPER(c.name) LIKE CONCAT('%', UPPER(?1), '%') ")
-    List<Customer> findAllByNameLikeIgnoreCase(final String name);
+public interface CustomerRepository extends MongoRepository<Customer, String> {
+    List<Customer> findAllByNameLikeIgnoreCase(String name);
 }
+
 

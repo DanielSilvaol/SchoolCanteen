@@ -16,7 +16,7 @@ public class CreateUserAction {
     private final UserRepository userRepository;
 
     public void createUser(final CreateUserCommand command) {
-        this.validateUser(command.getUsername());
+        this.validateUser(command);
         final User user = User.builder()
                 .name(command.getName())
                 .username(command.getUsername())
@@ -27,8 +27,8 @@ public class CreateUserAction {
         userRepository.save(user);
     }
 
-    private void validateUser(final String username) {
-        Optional<User> userOptional = userRepository.findByUsername(username);
+    private void validateUser(final CreateUserCommand command) {
+        Optional<User> userOptional = userRepository.findByUsername(command.getUsername());
         userOptional.ifPresent(user -> {
             throw new UserExistsException();
         });

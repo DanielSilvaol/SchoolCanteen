@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class CreateSaleCommand {
     private int quantity;
-    private Long productId;
+    private String productId;
 }

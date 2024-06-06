@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class LastLoginAction {
     private final UserRepository userRepository;
 
-    public void execute(final Long userId) {
+    public void execute(final String userId) {
         userRepository.findById(userId).ifPresent(user -> {
             user.setLastLogin(LocalDateTime.now());
             userRepository.save(user);

@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @Builder
 public class CreateProductHistoryCommand {
-    private Long productId;
+    private String productId;
     private String description;
 }
