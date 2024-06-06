@@ -12,6 +12,12 @@ pipeline {
     }
 
     stages {
+        stage('Initialize')
+        {
+            def dockerHome = tool 'DOCKER_JENKINS'
+            def mavenHome  = tool 'MAVEN_JENKINS'
+            env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+        }
         stage('Build') {
             steps {
                 echo 'Building...'
