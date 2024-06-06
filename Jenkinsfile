@@ -9,7 +9,7 @@ pipeline {
 
     tools {
         maven 'MAVEN_JENKINS'
-        'DOCKER_JENKINS' 'docker'
+        'docker' 'DOCKER_JENKINS'
     }
 
     stages {
